@@ -1,4 +1,5 @@
 import React from 'react';
+import SearchForm from './SearchForm'
 import './App.css';
 
 class App extends React.Component {
@@ -56,21 +57,12 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.onSearchSubmit}>
-          <input 
-            type="text" 
-            placeholder="Enter search term..." 
-            onChange={this.onSearchChange}
-          />
-          <button>Search</button>
-
-          <button 
-            onClick={() => this.searchJokes(1)} 
-            disabled={this.state.isFetchingJokes}
-          >
-            I'm Feeling Funny
-          </button>
-        </form>
+        <SearchForm 
+          onFormSubmit = {this.onSearchSubmit}
+          onSearchValueChange = {this.onSearchChange}
+          isSearching = {this.state.isFetchingJokes}
+          onSingleSearchClick = {() => this.searchJokes(1)}
+        />
 
         {this.state.isFetchingJokes 
           ? 'Searching for jokes...'
