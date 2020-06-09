@@ -50,6 +50,14 @@ class App extends React.Component {
     this.searchJokes();
   }
 
+  renderJokes() {
+    return (
+      <ul>
+        {this.state.jokes.map(item => <li key={item.id}>{item.joke}</li>)}
+      </ul> 
+    );
+  }
+
   render() {
     return (
       <div>
@@ -69,8 +77,12 @@ class App extends React.Component {
           </button>
         </form>
 
-        <p>{this.state.jokes.toString()}</p>
-    <p>search term: {this.state.searchTerm}</p>
+        {this.state.isFetchingJoke 
+          ? 'Searching for jokes...'
+          : this.renderJokes()
+        }
+
+        <p>search term: {this.state.searchTerm}</p>
       </div>
     );
   }
