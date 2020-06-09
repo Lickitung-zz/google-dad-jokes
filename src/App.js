@@ -1,25 +1,21 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
+function App(props) {
+
+  const onTellJoke = () => {
+    fetch('https://icanhazdadjoke.com/', {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json'
+      }
+    })
+    .then(response => response.json())
+    .then(json => console.log(json));
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <button onClick={onTellJoke}>Tell me a joke</button>
   );
 }
 
