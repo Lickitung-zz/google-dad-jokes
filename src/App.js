@@ -29,7 +29,6 @@ class App extends React.Component {
     .then(response => response.json())
     .then(json => {
       const jokes = json.results;
-      console.log('jokes', jokes);
       this.setState({
         jokes,
         isFetchingJokes: false
@@ -63,8 +62,6 @@ class App extends React.Component {
           ? 'Searching for jokes...'
           : this.renderJokes()
         }
-
-        <p>search term: {this.state.searchTerm}</p>
       </div>
     );
   }
