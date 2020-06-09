@@ -1,9 +1,19 @@
 import React from 'react';
 import './App.css';
 
-function App(props) {
+class App extends React.Component {
 
-  const onTellJoke = () => {
+  constructor() {
+    super();
+
+    this.state = {
+      joke: null
+    };
+
+    this.onTellJoke = this.onTellJoke.bind(this);
+  }
+
+  onTellJoke() {
     fetch('https://icanhazdadjoke.com/', {
       method: 'GET',
       headers: {
@@ -11,12 +21,19 @@ function App(props) {
       }
     })
     .then(response => response.json())
-    .then(json => console.log(json));
+    .then(json => {
+      this.setState({ joke: json.joke });
+    });
   };
 
-  return (
-    <button onClick={onTellJoke}>Tell me a joke</button>
-  );
+  render() {
+    return (
+      <div>
+        <button onClick={this.onTellJoke}>Tell me a joke</button>
+        <p>{this.state.joke}</p>
+      </div>
+    );
+  }
 }
 
 export default App;
