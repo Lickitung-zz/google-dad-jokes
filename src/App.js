@@ -9,18 +9,17 @@ class App extends React.Component {
     this.state = {
       searchTerm: '',
       jokes: [],
-      isFetchingJoke: false
+      isFetchingJokes: false
     };
 
-    this.onTellJoke = this.onTellJoke.bind(this);
     this.onSearchChange = this.onSearchChange.bind(this);
     this.onSearchSubmit = this.onSearchSubmit.bind(this);
   }
 
-  searchJokes() {
-    this.setState({ isFetchingJoke: true });
+  searchJokes(limit = 20) {
+    this.setState({ isFetchingJokes: true });
 
-    fetch(`https://icanhazdadjoke.com/search?term=${this.state.searchTerm}`, {
+    fetch(`https://icanhazdadjoke.com/search?term=${this.state.searchTerm}&limit=${limit}`, {
       method: 'GET',
       headers: {
         Accept: 'application/json'
@@ -32,14 +31,10 @@ class App extends React.Component {
       console.log('jokes', jokes);
       this.setState({
         jokes,
-        isFetchingJoke: false
+        isFetchingJokes: false
       });
     });
   }
-
-  onTellJoke() {
-    this.searchJokes();
-  };
 
   onSearchChange(event) {
     this.setState({ searchTerm: event.target.value });
@@ -70,14 +65,14 @@ class App extends React.Component {
           <button>Search</button>
 
           <button 
-            onClick={this.onTellJoke} 
-            disabled={this.state.isFetchingJoke}
+            onClick={() => this.searchJokes(1)} 
+            disabled={this.state.isFetchingJokes}
           >
-            Tell me a joke
+            I'm Feeling Funny
           </button>
         </form>
 
-        {this.state.isFetchingJoke 
+        {this.state.isFetchingJokes 
           ? 'Searching for jokes...'
           : this.renderJokes()
         }
