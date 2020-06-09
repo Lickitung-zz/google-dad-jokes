@@ -7,11 +7,13 @@ class App extends React.Component {
     super();
 
     this.state = {
+      searchTerm: '',
       jokes: [],
       isFetchingJoke: false
     };
 
     this.onTellJoke = this.onTellJoke.bind(this);
+    this.onSearchChange = this.onSearchChange.bind(this);
   }
 
   componentDidMount() {
@@ -41,11 +43,19 @@ class App extends React.Component {
     this.searchJokes();
   };
 
+  onSearchChange(event) {
+    this.setState({ searchTerm: event.target.value });
+  }
+
   render() {
     return (
       <div>
         <form>
-          <input type="text" placeholder="Enter search term..." />
+          <input 
+            type="text" 
+            placeholder="Enter search term..." 
+            onChange={this.onSearchChange}
+          />
           <button>Search</button>
 
           <button 
@@ -57,6 +67,7 @@ class App extends React.Component {
         </form>
 
         <p>{this.state.jokes.toString()}</p>
+    <p>search term: {this.state.searchTerm}</p>
       </div>
     );
   }
